@@ -37,7 +37,7 @@
   #app {
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
-    background-image: url(./Gay_Pride_Flag.svg);
+    background-color: #F48FB1;
     background-size: cover;
     text-decoration: none;
     display: flex;
