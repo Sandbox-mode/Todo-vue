@@ -8,17 +8,66 @@
         <hr class="todo-table__underline">
         <div class="todo-table__list">
           <ul>
-            <li class="todo-table__item">Выгулять собаку</li>
-            <li class="todo-table__item">Купить молока</li>
-            <li class="todo-table__item">Отправить начальнику отчет</li>
-            <li class="todo-table__item">Убраться во дворе</li>
+            <div class="todo-table__line">
+              <li class="todo-table__item">Выгулять собаку</li>
+              <div class="todo-table__line-buttons">
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
+            </div>
+
+            <div class="todo-table__line">
+              <li class="todo-table__item">Бла бла бла </li>
+              <div class="todo-table__line-buttons">
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
+            </div>
+
+            <div class="todo-table__line">
+              <li class="todo-table__item">Потравить тараканов</li>
+              <div class="todo-table__line-buttons">
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
+            </div>
+
+            <div class="todo-table__line">
+              <li class="todo-table__item">Прочитать книгу</li>
+              <div class="todo-table__line-buttons">
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+
+                <v-btn class="ma-2 line-button" small fab color="indigo">
+                  <v-icon>mdi-delete</v-icon>
+                </v-btn>
+              </div>
+            </div>
+
           </ul>
         </div>
         <div class="todo-table__clean-button"></div>
       </div>
 
       <div class="todo-input">
-        <input type="text"  placeholder="Введите что-нибудь..." class="input__item">
+        <input type="text" placeholder="Введите что-нибудь..." class="input__item">
+        <v-btn rounded color="red" dark>Ok</v-btn>
       </div>
 
     </div>
@@ -37,7 +86,7 @@
   #app {
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
-    background-color: #F48FB1;
+    background-color: #ff698f;
     background-size: cover;
     text-decoration: none;
     display: flex;
@@ -67,28 +116,50 @@
       display: flex;
       align-items: center;
       margin-top: 30px;
-      padding-left: 23px;
+      padding-left: 25px;
+
 
     }
 
+    &__line {
+      width: 428px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 35px;
+      background: rgba(218, 27, 202, 0.3);
+      border-radius: 10px;
+      padding: 5px;
+    }
+
+    .line-button {
+      margin-left: 5px;
+    }
+
+
+
     &__item {
-      margin-bottom: 30px;
+
       list-style-type: none;
+
     }
   }
 
   .todo-input {
-    width: 360px;
+    width: 420px;
     margin: 0 auto;
     margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
   }
-  .input__item{
+
+  .input__item {
     background-color: #fff;
-    width: 100%;
+    width: 80%;
     height: 40px;
     border-radius: 5px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  }
 
+  }
 </style>
