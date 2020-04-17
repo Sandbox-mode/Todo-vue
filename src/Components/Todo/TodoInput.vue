@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="todo-input">
-      <input v-model="title" @keyup.enter="addTodo" type="text" placeholder="Введите что-нибудь..." class="input__item">
+      <input v-model="title" maxlength="29" @keyup.enter="addTodo" type="text" placeholder="Введите что-нибудь..." class="input__item">
       <v-btn @click="addTodo"  rounded color="red" dark>Ok</v-btn>
     </div>
   </div>
@@ -25,9 +25,11 @@
           title: this.title,
           editing: false
         }
-
+        if (this.title.length > 0) {
         this.$emit('TodoInput', newTodoObj);
-        this.title = '';
+        this.title = ''; } else {
+          alert('Недопустимое количество символов!')
+        }
       }
     }
   }

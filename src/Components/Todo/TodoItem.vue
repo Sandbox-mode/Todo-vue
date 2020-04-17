@@ -11,7 +11,7 @@
     </div>
 
     <div v-if="todo.editing" class="todo-item__edit-input">
-      <input ref="input" class="todo-item__input-edit" type="text" v-model="todo.title" @keyup.enter="hideEdit">
+      <input ref="input" maxlength="29" class="todo-item__input-edit" type="text" v-model="localValue" @keyup.enter="hideEdit">
     </div>
 
     <v-btn v-if="todo.editing" class="ma-2 todo-item__checkbutton" x-small fab color="indigo" @click="hideEdit">
@@ -26,21 +26,32 @@
       todo: Object,
     },
     name: "TodoItem",
+    data() {
+      return {
+        localValue: this.todo.title,
+      }
+    },
     methods: {
       handleClick() {
         console.log(this.todo.id)
         this.$emit('delete-todo', this.todo.id)
       },
       showEdit() {
-        console.log(this.$refs)
+        // console.log(this.$refs)
         this.todo.editing = true;
-        this.$emit('edit-todo', this.todo.id);
+        // this.$emit('edit-todo', this.todo.id);
         this.$nextTick(() => this.$refs.input.focus())
-        
+
       },
       hideEdit() {
-        this.todo.editing = false;
-      }
+        if (!this.localValue) return
+
+        this.$emit('edit-todo', {
+          id: this.todo.id,
+          title: this.localValue,
+          editing: false
+        });
+      },
     }
 
   };

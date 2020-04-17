@@ -45,10 +45,14 @@ router.get('/todos/', (req, res) => {
 
 router.post('/todos/todo', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.status(200).send(JSON.stringify({
+
+  const newItem = {
     ...req.body,
     id: todos[todos.length - 1].id + 1
-  }))
+  }
+
+  todos.push(newItem);
+  res.status(200).send(JSON.stringify(newItem))
 })
 
 router.put('/todos/todo/:id', (req, res) => {
