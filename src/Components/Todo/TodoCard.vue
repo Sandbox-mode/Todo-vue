@@ -1,17 +1,24 @@
 <template>
   <div class="todo-card">
     <h2 class="todo-card__header">2DoApp</h2>
-    <TodoList />
+    <TodoList :todos="todos" @delete-todo="$emit('delete-todo', $event)" @edit-todo="$emit('edit-todo', $event)"></TodoList>
   </div>
 </template>
 
 <script>
 import TodoList from "./TodoList";
 export default {
+  props: {
+    todos: Array,
+  },
   name: "TodoCard",
   components: {
     TodoList
-  }
+  },
+  methods: {
+    
+  },
+  
 };
 </script>
 

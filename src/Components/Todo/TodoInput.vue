@@ -1,21 +1,40 @@
 <template>
   <div>
     <div class="todo-input">
-        <input type="text" placeholder="Введите что-нибудь..." class="input__item">
-        <v-btn rounded color="red" dark>Ok</v-btn>
-      </div>
+      <input v-model="title" @keyup.enter="addTodo" type="text" placeholder="Введите что-нибудь..." class="input__item">
+      <v-btn @click="addTodo"  rounded color="red" dark>Ok</v-btn>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'TodoInput'
+  import uuid from 'uuid';
 
-}
+  export default {
+    data() {
+      return {
+        title: '',
+      };
+    },
+    name: 'TodoInput',
+    methods: {
+      addTodo() {
+
+        const newTodoObj = {
+          id: uuid.v4(),
+          title: this.title,
+          editing: false
+        }
+
+        this.$emit('TodoInput', newTodoObj);
+        this.title = '';
+      }
+    }
+  }
 </script>
 
 <style lang="scss">
-.todo-input {
+  .todo-input {
     width: 420px;
     margin: 0 auto;
     margin-top: 30px;
