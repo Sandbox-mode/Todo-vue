@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="todo-input">
-      <input v-model="title" maxlength="29" @keyup.enter="addTodo" type="text" placeholder="Введите что-нибудь..." class="input__item">
-      <v-btn @click="addTodo"  rounded color="red" dark>Ok</v-btn>
+      <input v-model="title" maxlength="29" @keyup.enter="setAddItemHandle" type="text"
+        placeholder="Введите что-нибудь..." class="input__item">
+      <v-btn @click="setAddItemHandle" rounded color="red" dark>Ok</v-btn>
     </div>
   </div>
 </template>
 
 <script>
   import uuid from 'uuid';
-
+  import { mapGetters, mapActions } from 'vuex';
   export default {
     data() {
       return {
@@ -18,18 +19,13 @@
     },
     name: 'TodoInput',
     methods: {
-      addTodo() {
-
-        const newTodoObj = {
-          id: uuid.v4(),
-          title: this.title,
-          editing: false
+      ...mapActions(['setAddItem']),
+      setAddItemHandle() {
+        if (!this.title.length) {
+          return alert("Недопустимое количество символов!");
         }
-        if (this.title.length > 0) {
-        this.$emit('TodoInput', newTodoObj);
-        this.title = ''; } else {
-          alert('Недопустимое количество символов!')
-        }
+        this.setAddItem({ title: this.title });
+        this.title = '';
       }
     }
   }

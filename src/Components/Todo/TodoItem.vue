@@ -2,25 +2,30 @@
   <li class="todo-item">
     <span v-if="!todo.editing" class="todo-item__title">{{ todo.title }}</span>
     <div class="todo-item__buttons">
-      <v-btn v-if="!todo.editing" @click="showEdit" class="ma-2 todo-item__button" x-small fab color="indigo">
+      <v-btn v-if="!todo.editing" @click="setShowEditHandle" class="ma-2 todo-item__button" x-small fab
+        color="indigo">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
-      <v-btn v-if="!todo.editing" @click="handleClick" class="ma-2 todo-item__button" x-small fab color="indigo">
+      <v-btn v-if="!todo.editing" @click="() => setDeleteItem(todo)" class="ma-2 todo-item__button" x-small fab
+        color="indigo">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </div>
 
     <div v-if="todo.editing" class="todo-item__edit-input">
-      <input ref="input" maxlength="29" class="todo-item__input-edit" type="text" v-model="localValue" @keyup.enter="hideEdit">
+      <input ref="input" maxlength="29" class="todo-item__input-edit" type="text" v-model="localValue"
+        @keyup.enter="setHideEditHandle">
     </div>
 
-    <v-btn v-if="todo.editing" class="ma-2 todo-item__checkbutton" x-small fab color="indigo" @click="hideEdit">
+    <v-btn v-if="todo.editing" class="ma-2 todo-item__checkbutton" x-small fab color="indigo"
+      @click="setHideEditHandle">
       <v-icon>mdi-check</v-icon>
     </v-btn>
   </li>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
   export default {
     props: {
       todo: Object,
@@ -32,28 +37,21 @@
       }
     },
     methods: {
-      handleClick() {
-        console.log(this.todo.id)
-        this.$emit('delete-todo', this.todo.id)
-      },
-      showEdit() {
-        // console.log(this.$refs)
-        this.todo.editing = true;
-        // this.$emit('edit-todo', this.todo.id);
-        this.$nextTick(() => this.$refs.input.focus())
-
-      },
-      hideEdit() {
-        if (!this.localValue) return
-
-        this.$emit('edit-todo', {
-          id: this.todo.id,
-          title: this.localValue,
-          editing: false
+      ...mapActions(['setDeleteItem', 'updateItem']),
+      setShowEditHandle() {
+        this.updateItem({ 
+          ...this.todo, 
+          editing: true, 
         });
       },
+      setHideEditHandle() {
+        this.updateItem({ 
+          ...this.todo, 
+          editing: false,
+          title: this.localValue
+         });
+      }
     }
-
   };
 </script>
 

@@ -1,11 +1,12 @@
 <template>
   <ul class="todo-list">
-    <p class="todo-list__empty" v-if=" this.todos.length == 0">Your todo list is empty now!</p>
-    <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" @delete-todo="handleDeleteItem($event)" @edit-todo="handleEditItem($event)"></TodoItem>
+    <p class="todo-list__empty" v-if="!getTodos.length">Your ToDo list is empty now!</p>
+    <TodoItem v-for="todo in getTodos" :key="todo.id" :todo="todo"></TodoItem>
   </ul>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex';
   import TodoItem from "./TodoItem";
   export default {
     props: {
@@ -16,12 +17,12 @@
       TodoItem
     },
     methods: {
-      handleDeleteItem($event) {
-        this.$emit('delete-todo', $event)
-      },
       handleEditItem($event) {
         this.$emit('edit-todo', $event)
       }
+    },
+    computed: {
+      ...mapGetters(['getTodos']),
     }
   };
 </script>
@@ -33,7 +34,8 @@
     flex-direction: column;
     margin-top: 30px;
     padding: 0 10px;
-    &__empty{
+
+    &__empty {
       width: 100%;
       display: flex;
       justify-content: center;
